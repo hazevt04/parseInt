@@ -67,6 +67,17 @@ long decode_index( int index, const bool& debug=false ) {
 }
 
 
+std::string dashes_to_spaces( std::string str ) {
+   std::string result_str;
+   std::istringstream iss{ str };
+   std::string item;
+   while( std::getline( iss, item, '-' ) ) {
+      result_str += " " + item;
+   }
+   return result_str;
+}
+
+
 std::vector<std::string> reverse_words( std::string words, const bool& debug=false ) {
    std::vector<std::string> words_reversed;
    auto iss = std::istringstream{ words };
@@ -96,6 +107,7 @@ long parse_int( std::string number_string, const bool& debug=false ) {
    long val = 0;
    debug_cout( debug, __func__, "(): number_string is '", number_string, "'" ); 
 
+   number_string = dashes_to_spaces( number_string );
    std::vector<std::string> reversed_number_string = reverse_words( number_string, debug );
 
    for( str_vec_size_type index = 0; index != reversed_number_string.size(); ++index ) {
@@ -138,6 +150,7 @@ int main( int argc, char** argv ) {
       std::vector<std::pair<std::string,int>> tests = {
          {"two hundred forty six", 246}, 
          {"two hundred and forty six", 246}, 
+         {"two hundred and forty-six", 246}, 
          {"three thousand seven hundred and five", 3705}, 
          {"three thousand seven hundred five", 3705} 
       };
