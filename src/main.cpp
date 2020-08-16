@@ -74,8 +74,10 @@ std::vector<std::string> reverse_words( std::string words, const bool& debug=fal
    
    auto beginning = words_reversed.begin();
    while ( iss >> str ) {
-      words_reversed.insert( beginning, str ); 
-      beginning = words_reversed.begin();
+      if ( str != "and" ) {
+         words_reversed.insert( beginning, str ); 
+         beginning = words_reversed.begin();
+      }
    }
    debug_cout( debug, __func__, "(): words is '", words, "'" ); 
    
@@ -121,7 +123,6 @@ long parse_int( std::string number_string, const bool& debug=false ) {
          debug_cout( debug, __func__, "(): tval < 90. increasing val to ", val );
       } // end of if ( tval > 90 ) {
    } // end of for( vec_size_type index = 0; index != reversed_number_string.size(); ++index ) {
-
    return val;
 }
 
@@ -136,6 +137,8 @@ int main( int argc, char** argv ) {
    try {
       std::vector<std::pair<std::string,int>> tests = {
          {"two hundred forty six", 246}, 
+         {"two hundred and forty six", 246}, 
+         {"three thousand seven hundred and five", 3705}, 
          {"three thousand seven hundred five", 3705} 
       };
       bool debug = false;
