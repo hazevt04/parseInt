@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 2.8.0 )
 
-project( foo )
+project( parse_int )
 
 include_directories( "include" )
 
